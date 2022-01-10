@@ -112,6 +112,7 @@ var himawari = function (userOptions) {
     var count = 1;
     var skipImage = false;
     var flow = options.parallel ? 'each' : 'eachSeries';
+    var isError = false;
     async[flow](tiles, function (tile, cb) {
 
       if (skipImage) { return cb(); }
@@ -147,7 +148,7 @@ var himawari = function (userOptions) {
             total: tiles.length
           });
           count++;
-          return inner_cb();
+          if(!isError) return inner_cb();
         });
 
         // Pipe image
@@ -185,6 +186,7 @@ var himawari = function (userOptions) {
 
       if (err) {
         log('Error occurred...', err);
+        isError = true;
         return options.error(err);
       }
 
