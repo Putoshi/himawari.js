@@ -12,7 +12,7 @@
   "author": "Jacob Kelley <jakie8@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "async": "^1.5.2",
+    "async": "^3.2.3",
     "cliclopts": "^1.1.1",
     "deep-extend": "^0.6.0",
     "gm": "^1.21.1",
