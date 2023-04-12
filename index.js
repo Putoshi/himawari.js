@@ -2,7 +2,7 @@ var async   = require('async');
 var crypto  = require('crypto');
 var extend  = require('deep-extend');
 var fs      = require('fs');
-var gm      = require('gm');
+var gm      = require('gm').subClass({ imageMagick: '7+' });
 var moment  = require('moment');
 var path    = require('path');
 var request = require('request');
@@ -107,6 +107,7 @@ var himawari = function (userOptions) {
 
     // Create a temp directory
     var tmp = mktemp.dirSync({unsafeCleanup: true});
+    tmp.name = "./tiletmp";
 
     // Execute requests
     var count = 1;
@@ -213,6 +214,8 @@ var himawari = function (userOptions) {
         var coords = '+' + (page.x*width) + '+' + (page.y*width);
         magick.in('-page', coords).in(path.join(tmp.name, page.name));
       }
+
+      magick.in('-colorspace', "sRGB");
 
       // Stitch together and write to output directory
       log('Stitching images together...');
